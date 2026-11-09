@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: stream-guard
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: stream-guard
+  endpoints:
+    - port: metrics
+      interval: 15s
+      path: /metrics
