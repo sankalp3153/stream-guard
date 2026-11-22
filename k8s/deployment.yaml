@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stream-guard
+  labels:
+    app: stream-guard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stream-guard
+  template:
+    metadata:
+      labels:
+        app: stream-guard
+    spec:
+      containers:
+        - name: exporter
+          image: ghcr.io/sankalp3153/stream-guard:latest
+          ports:
+            - name: metrics
+              containerPort: 9108
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 9108
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"

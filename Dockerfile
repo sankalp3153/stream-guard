@@ -4,4 +4,4 @@ WORKDIR /opt/stream-guard
 COPY stream_guard ./stream_guard
 EXPOSE 9108
 
-CMD ["python3", "-m", "http.server", "9108"]
+CMD ["python3", "-m", "stream_guard.server"]
